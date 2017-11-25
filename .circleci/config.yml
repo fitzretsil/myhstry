@@ -40,8 +40,12 @@ jobs:
       # run tests!
       - run: mvn integration-test
       
+      # Prepare for Docker commands
+      - setup_remote_docker
+      
       # Login to Docker
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
-      # Push the image to the Docker Respository
-      - run: docker push andydiack/myhstry
+      # Build then Push the image to the Docker Respository
+      - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
+      - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
