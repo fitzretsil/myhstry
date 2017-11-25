@@ -40,9 +40,8 @@ jobs:
       # run tests!
       - run: mvn integration-test
       
-      - deployment:
-        staging:
-          branch: codedeploy
-          commands:
-            - docker login -u $DOCKER_USER -p $DOCKER_PASS
-            - docker push andydiack/myhstry
+      # Login to Docker
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      
+      # Push the image to the Docker Respository
+      - run: docker push andydiack/myhstry
