@@ -50,9 +50,9 @@ jobs:
       - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
       - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
       
-deployment:
- staging:
-   branch: codedeploy
-   codedeploy:
-     myhstry:
-       deployment_group: my-deployment-group
+  deployment:
+   staging:
+     branch: codedeploy
+     codedeploy:
+       myhstry:
+         deployment_group: my-deployment-group
