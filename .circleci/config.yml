@@ -47,9 +47,8 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
       # Build then Push the image to the Docker Respository
-      - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
-      
       - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
+      - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
 
   deploy:
     docker:
