@@ -49,3 +49,12 @@ jobs:
       # Build then Push the image to the Docker Respository
       - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
       - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
+
+  deploy:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/myhstry  
+    steps:
+      - run:
+          name: Deploy if tests pass and branch is Master
+          command: ssh $USERNAME@$SERVER docker pull andydiack/myhstry
