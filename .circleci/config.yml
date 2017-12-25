@@ -58,3 +58,15 @@ jobs:
       - run:
           name: Deploy if tests pass and branch is Master
           command: ssh $USERNAME@$SERVER docker pull andydiack/myhstry
+          
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: codedeploy
