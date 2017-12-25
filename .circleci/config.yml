@@ -57,7 +57,7 @@ jobs:
     steps:
       - run:
           name: Deploy if tests pass and branch is Master
-          command: ssh -o "StrictHostKeyChecking no" $USERNAME@$SERVER docker pull andydiack/myhstry
+          command: ssh -o "StrictHostKeyChecking no" $USERNAME@$SERVER docker pull andydiack/myhstry &
           
 workflows:
   version: 2
