@@ -39,6 +39,8 @@ jobs:
         
       # run tests!
       - run: mvn integration-test
+      
+      - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
 
   deploy:
     docker:
@@ -52,7 +54,6 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
       # Build then Push the image to the Docker Respository
-      - run: docker build -t andydiack/myhstry:master .
       - run: docker push andydiack/myhstry:master
       - run:
           name: Deploy if tests pass and branch is Master
