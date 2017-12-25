@@ -40,13 +40,6 @@ jobs:
       # run tests!
       - run: mvn integration-test
       
-      - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
-
-  deploy:
-    docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/myhstry  
-    steps:
       # Prepare for Docker commands
       - setup_remote_docker
       
@@ -54,7 +47,15 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
       # Build then Push the image to the Docker Respository
-      - run: docker push andydiack/myhstry:master
+      - run: docker push andydiack/myhstry:$CIRCLE_BRANCH
+      
+      - run: docker build -t andydiack/myhstry:$CIRCLE_BRANCH .
+
+  deploy:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/myhstry  
+    steps:
       - run:
           name: Deploy if tests pass and branch is Master
           command: ssh -o "StrictHostKeyChecking no" $USERNAME@$SERVER docker pull andydiack/myhstry
