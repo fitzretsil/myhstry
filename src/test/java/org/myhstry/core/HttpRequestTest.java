@@ -22,7 +22,7 @@ public class HttpRequestTest {
 
 	@Test
 	public void test() {
-		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class)).contains("Hello World");
+		assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class)).contains("Hello and welcome to MyHstry.org");
 	}
 
 }
