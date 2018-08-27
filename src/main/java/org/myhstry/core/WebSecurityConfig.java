@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * @author fitzretsil
@@ -23,20 +24,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home", "/style/*.css", "/images/*.*").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").permitAll().and().logout().permitAll();
+		http.authorizeRequests().antMatchers("/", "/home", "/style/*.css", "/images/*.*").permitAll().anyRequest()
+				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/home");
 	}
-	
+
 	@Bean
 	@Override
 	public UserDetailsService userDetailsService() {
-		UserDetails user =
-				User.withDefaultPasswordEncoder()
-					.username("user")
-					.password("password")
-					.roles("USER")
-					.build();
-		
+		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER")
+				.build();
+
 		return new InMemoryUserDetailsManager(user);
 	}
 }

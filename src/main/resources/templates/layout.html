@@ -3,15 +3,20 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-	<meta charset="UTF-8">
-	<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">myHstry</title>
-	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
-	<link rel="stylesheet" href="style/myhstry.css" />
+<meta charset="UTF-8">
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">myHstry</title>
+<link href="https://fonts.googleapis.com/css?family=Comfortaa"
+	rel="stylesheet">
+<link rel="stylesheet" href="style/myhstry.css" />
 </head>
 <body>
 	<div id="container">
 		<div id="header">
-			<div id="logo"><h1><a href="/">myHstry</a></h1></div>
+			<div id="logo">
+				<h1>
+					<a href="/">myHstry</a>
+				</h1>
+			</div>
 			<div id="menu">
 				<ul>
 					<li><a href="/home">Home</a></li>
@@ -21,11 +26,12 @@
 			</div>
 		</div>
 		<div id="body">
+			<div sec:authorize="isAuthenticated()">This content is only
+				shown to authenticated users.</div>
 			<div layout:fragment="page_content"></div>
 		</div>
-		<div id="footer">
-			&copy; copyright 2017-2018 Andy Diack. All rights reserved.
-		</div>
+		<div id="footer">&copy; copyright 2017-2018 Andy Diack. All
+			rights reserved.</div>
 	</div>
 </body>
 </html>
