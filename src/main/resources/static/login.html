@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myHstry: Home</title>
+<link href="https://fonts.googleapis.com/css?family=Comfortaa"
+	rel="stylesheet">
+<link rel="stylesheet" href="myhstry.css" />
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+			<div id="logo">
+				<h1>
+					<a href="/">myHstry</a>
+				</h1>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="about.html">About</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="body">
+			<div th:if="${param.error}">Invalid username and password.</div>
+			<div th:if="${param.logout}">You have been logged out.</div>
+			<form th:action="@{/login}" method="post">
+				<div>
+					<label> User Name : <input type="text" name="username" />
+					</label>
+				</div>
+				<div>
+					<label> Password: <input type="password" name="password" />
+					</label>
+				</div>
+				<div>
+					<input type="submit" value="Sign In" />
+				</div>
+			</form>
+		</div>
+		<div id="footer">&copy; copyright 2017 Andy Diack. All rights
+			reserved.</div>
+	</div>
+</body>
+</html>
