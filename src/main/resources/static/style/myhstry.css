@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'Comfortaa', cursive;
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	padding: 5px 0px;
+}
+
+div#container {
+   min-height:100%;
+   position:relative;
+   background: #f2f3f2;
+}
+
+div#header {
+	background: linear-gradient(to right, #4881ea, #76a0ef);
+	border-bottom: 40px solid #5a5b57;
+	color: #fff;
+}
+
+div#header h1 {
+	padding: 10px;
+}
+
+div#header div {
+	display: inline-block;
+}
+
+div#menu {
+	float: right;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+}
+
+div#menu ul li {
+	display: inline-block;
+	padding: 20px;
+}
+
+div#menu ul li:last-child {
+	background: #5a5b57;
+}
+
+div#body { 
+	background: #f2f3f2;
+	padding-bottom: 80px;
+}
+
+div#body div.content {
+	padding: 50px;
+}
+
+div#welcome {
+	background: url('../images/tree-with-sky.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	padding: 70px 70px 400px 70px;
+	background-position: center center;
+	height: 600px;
+	
+	color: #fff;
+	font-weight: normal;
+	font-size: 30px;
+}
+
+div#footer {
+	position: absolute;
+	bottom: 0px;
+	border-top: 40px solid #5a5b57;
+	background: #7A7B76;
+	padding: 30px;
+	text-align: center;
+	color: #fff;
+	font-size: 80%;
+	height: 30px;
+	width: 100%;
+}
