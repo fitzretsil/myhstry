@@ -21,13 +21,12 @@
 				<ul>
 					<li><a href="/home">Home</a></li>
 					<li><a href="/about">About</a></li>
-					<li><a href="/logout">Logout</a></li>
+					<li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
+					<li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="body">
-			<div sec:authorize="isAuthenticated()">This content is only
-				shown to authenticated users.</div>
 			<div layout:fragment="page_content"></div>
 		</div>
 		<div id="footer">&copy; copyright 2017-2018 Andy Diack. All
