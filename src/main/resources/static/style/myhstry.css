@@ -58,7 +58,7 @@ div#body div.content {
 }
 
 div#welcome {
-	background: url('tree-with-sky.jpg');
+	background: url('../images/tree-with-sky.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	padding: 70px 70px 400px 70px;
