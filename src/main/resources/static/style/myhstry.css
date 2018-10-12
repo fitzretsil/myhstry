@@ -55,6 +55,7 @@ div#body {
 
 div#body div.content {
 	padding: 50px;
+	margin-bottom: 100px;
 }
 
 div#welcome {
@@ -81,4 +82,33 @@ div#footer {
 	font-size: 80%;
 	height: 30px;
 	width: 100%;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table th {
+	background: grey;
+	color: white;
+	font-weight: bold;
+}
+
+table, td, th {
+	padding: 5px;
+	border: 1px solid black;
+}
+
+div#controls {
+	margin-bottom: 10px;
+}
+
+div#controls a {
+	padding: 5px 10px;
+    background: #4881ea;
+    border: 1px solid grey;
+}
+
+td a {
+	color: black;
 }

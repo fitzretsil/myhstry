@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<form th:action="@{/marriages/add}" method="post">
+			<p>Wive:</p>
+			<select name="wive">
+				<option value="">Unknown</option>
+				<option th:each="wive : ${wives}" th:value="${wive.id}" th:text="${wive.fullname}"></option>
+			</select><br />
+			<p>Husband:</p>
+			<select name="husband">
+				<option value="">Unknown</option>
+				<option th:each="husband : ${husbands}" th:value="${husband.id}" th:text="${husband.fullname}"></option>
+			</select><br />
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+</div>
+</html>
