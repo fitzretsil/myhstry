@@ -9,6 +9,8 @@ jobs:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
       
+      - image: circleci/mysql:latest
+      
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -38,7 +40,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
       # run tests!
-      - run: mvn integration-test
+      - run: mvn integration-test -Dspring.profiles.active=test
       
       # Prepare for Docker commands
       - setup_remote_docker
@@ -47,8 +49,8 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       
       # Build then Push the image to the Docker Respository
-      - run: ./mvnw install dockerfile:build
-      - run: ./mvnw install dockerfile:push
+      - run: ./mvnw install dockerfile:build -Dspring.profiles.active=test
+      - run: ./mvnw install dockerfile:push -Dspring.profiles.active=test
 
   deploy:
     docker:

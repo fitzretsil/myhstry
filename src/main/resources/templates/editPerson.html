@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<form th:action="@{'/person/edit/' + ${person.id}}" method="post">
+			<p>First Name:</p>
+			<input type="text" name="firstname" th:value="${person.firstname}"><br />
+			<p>Middle Names:</p>
+			<input type="text" name="middlenames" th:value="${person.middlenames}"><br />
+			<p>Last Name:</p>
+			<input type="text" name="surname" th:value="${person.surname}"><br />
+			<p>Gender:</p>
+			<input type="radio" name="gender" value="male" th:checked="${person.gender}"> Male<br />
+			<input type="radio" name="gender" value="female" th:checked="${person.gender}"> Female<br />
+			<p>Birth:</p>
+			<input type="date" name="birth" th:value="${person.birth}"><br />
+			<p>Death:</p>
+			<input type="date" name="death" th:value="${person.death}"><br />
+			<br /> 
+			<p>Mother:</p>
+			<select th:field="*{person.mother}">
+				<option value="">Unknown</option>
+				<option th:each="parent : ${mothers}" th:if="${person.id} != ${parent.id}" th:value="${parent.id}" th:text="${parent.fullname}"></option>
+			</select><br />
+			<p>Father:</p>
+			<select th:field="*{person.father}">
+				<option value="">Unknown</option>
+				<option th:each="parent : ${fathers}" th:if="${person.id} != ${parent.id}" th:value="${parent.id}" th:text="${parent.fullname}"></option>
+			</select><br />
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+</div>
+</html>

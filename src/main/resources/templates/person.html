@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<div id="controls">
+			<a href="/person/add">Add</a>
+		</div>
+		<table>
+			<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Middle Names</th>
+				<th>Surname</th>
+				<th>Gender</th>
+				<th>Birth</th>
+				<th>Death</th>
+				<th>Father</th>
+				<th>Mother</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="person : ${list}">
+        			<td th:text="${person.firstname}"></td>
+        			<td th:text="${person.middlenames}"></td>
+        			<td th:text="${person.surname}"></td>
+        			<td th:text="${person.gender}"></td>
+        			<td th:text="${#dates.format(person.birth, 'dd/MM/yyyy')}"></td>
+        			<td th:text="${person.death}"></td>
+        			<td th:text="${person?.father?.fullname}"></td>
+        			<td th:text="${person?.mother?.fullname}"></td>
+        			<td><a th:href="@{'/person/edit?id=' + ${person.id}}">Edit</a> &bullet; <a th:href="@{'/person/delete/' + ${person.id}}">Delete</a></td>
+				</tr>
+            </tbody>
+		</table>
+	</div>
+</div>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<div id="controls">
+			<a href="/marriages/add">Add</a>
+		</div>
+		<table>
+			<thead>
+			<tr>
+				<th>Husband</th>
+				<th>Wife</th>
+				<th>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="marriage : ${marriages}">
+        			<td th:text="${marriage?.husband?.fullname}"></td>
+        			<td th:text="${marriage?.wife?.fullname}"></td>
+        			<td><a th:href="@{'/marriages/edit/' + ${marriage.id}}">Edit</a> &bullet; <a th:href="@{'/marriages/delete/' + ${marriage.id}}">Delete</a></td>
+				</tr>
+            </tbody>
+		</table>
+	</div>
+</div>
+</html>
