@@ -50,7 +50,7 @@ jobs:
       
       # Build then Push the image to the Docker Respository
       - run: ./mvnw install dockerfile:build -Dspring.profiles.active=test
-      - run: ./mvnw install dockerfile:push
+      - run: ./mvnw install dockerfile:push -Dspring.profiles.active=test
 
   deploy:
     docker:
