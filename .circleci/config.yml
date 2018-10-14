@@ -17,7 +17,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run:
           name: Build
-          command: mvn install
+          command: mvn install -Dspring.profiles.active=test
       - save_cache:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           paths:
