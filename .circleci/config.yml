@@ -13,6 +13,7 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: mvn dependency:go-offline
       - run:
           name: Build
           command: mvn install -Dspring.profiles.active=test
@@ -26,6 +27,7 @@ jobs:
       - image: circleci/mysql:latest
     steps:
       - checkout
+      - run: mvn dependency:go-offline
       - run:
           name: Test
           command: mvn integration-test -Dspring.profiles.active=test
