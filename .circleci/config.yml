@@ -14,10 +14,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+          key: - v1-dependencies-{{ checksum "pom.xml" }}
       - run:
           name: Build
           command: mvn install
