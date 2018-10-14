@@ -5,70 +5,64 @@
 version: 2
 jobs:
   build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
-      
-      - image: circleci/mysql:latest
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
     working_directory: ~/myhstry
-
-    environment:
-      # Customize the JVM maximum heap limit
-      MAVEN_OPTS: -Xmx3200m
-    
+    # The primary container is an instance of the first image listed. The job's commands run in this container.
+    docker:
+      - image: circleci/openjdk:8-jdk
+    # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
+      - image: circleci/mysql:latest
     steps:
       - checkout
-
-      # Download and cache dependencies
       - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: mvn dependency:go-offline
-
+          key: 
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Build
+          command: mvn install
       - save_cache:
+          key: v1-dependencies-{{ checksum "pom.xml" }}
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-        
-      # run tests!
-      - run: mvn integration-test -Dspring.profiles.active=test
-      
-      # Prepare for Docker commands
-      - setup_remote_docker
-      
-      # Login to Docker
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-      
-      # Build then Push the image to the Docker Respository
-      - run: ./mvnw install dockerfile:build -Dspring.profiles.active=test
-      - run: ./mvnw install dockerfile:push -Dspring.profiles.active=test
-
-  deploy:
+  test:
     docker:
-      - image: circleci/openjdk:8-jdk
-    working_directory: ~/myhstry  
+      - image: circleci/node:4.8.2-jessie
+      - image: mongo:3.4.4-jessie
     steps:
+      - checkout
       - run:
-          name: Deploy if tests pass and branch is Master
-          command: ssh -o "StrictHostKeyChecking no" $USERNAME@$SERVER docker pull andydiack/myhstry
-          
+          name: Test
+          command: mvn integration-test -Dspring.profiles.active=test
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+
 workflows:
   version: 2
-  build-deploy:
+  build_and_test:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+
+      
+#      # Prepare for Docker commands
+#      - setup_remote_docker
+#      
+#      # Login to Docker
+#      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+#      
+#      # Build then Push the image to the Docker Respository
+#      - run: ./mvnw install dockerfile:build -Dspring.profiles.active=test
+#      - run: ./mvnw install dockerfile:push -Dspring.profiles.active=test
+#
+#  deploy:
+#    docker:
+#      - image: circleci/openjdk:8-jdk
+#    working_directory: ~/myhstry  
+#    steps:
+#      - run:
+#          name: Deploy if tests pass and branch is Master
+#          command: ssh -o "StrictHostKeyChecking no" $USERNAME@$SERVER docker pull andydiack/myhstry
