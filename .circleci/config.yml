@@ -27,8 +27,9 @@ jobs:
             - ~/.m2
   test:
     docker:
-      - image: circleci/node:4.8.2-jessie
-      - image: mongo:3.4.4-jessie
+      - image: circleci/openjdk:8-jdk
+    # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
+      - image: circleci/mysql:latest
     steps:
       - checkout
       - run:
