@@ -37,6 +37,9 @@ jobs:
           
   deploy:
     working_directory: ~/myhstry
+    docker:
+      - image: circleci/openjdk:8-jdk
+      - image: circleci/mysql:latest
     steps:
       # Prepare for Docker commands
       - setup_remote_docker
