@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/myhstry
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk@sha256:f9ba19ff0ac80c72302bc2e06517a2dc317f8a51e5c1beb6139e3c61fedc60d2
       - image: circleci/mysql:latest
     steps:
       - checkout
@@ -23,7 +23,7 @@ jobs:
             - ~/.m2
   test:
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk@sha256:f9ba19ff0ac80c72302bc2e06517a2dc317f8a51e5c1beb6139e3c61fedc60d2
       - image: circleci/mysql:latest
     steps:
       - checkout
@@ -38,7 +38,7 @@ jobs:
   deploy:
     working_directory: ~/myhstry
     docker:
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk@sha256:f9ba19ff0ac80c72302bc2e06517a2dc317f8a51e5c1beb6139e3c61fedc60d2
       - image: circleci/mysql:latest
     steps:
       # Prepare for Docker commands
