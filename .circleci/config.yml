@@ -34,6 +34,19 @@ jobs:
       - store_artifacts:
           path: test-results.xml
           prefix: tests
+          
+  deploy:
+    working_directory: ~/myhstry
+    steps:
+      # Prepare for Docker commands
+      - setup_remote_docker
+      
+      # Login to Docker
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      
+      # Build then Push the image to the Docker Respository
+      - run: ./mvnw install dockerfile:build -Dspring.profiles.active=test
+      - run: ./mvnw install dockerfile:push -Dspring.profiles.active=test
 
 workflows:
   version: 2
@@ -41,8 +54,11 @@ workflows:
     jobs:
       - build
       - test:
-          requires:
-            - build
+        requires:
+          - build
+      - deploy:
+        requires:
+          - build
 
       
 #      # Prepare for Docker commands
