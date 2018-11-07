@@ -3,6 +3,8 @@
  */
 package org.myhstry.core;
 
+import org.myhstry.core.paf.LEndianRandomAccessFile;
+import org.myhstry.core.paf.PAFFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,12 @@ public class ImportController {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
+        				
+		LEndianRandomAccessFile file2 = new LEndianRandomAccessFile("upload-dir/"+file.getOriginalFilename(), "r");
+		
+		PAFFile paf = new PAFFile(file2);
+		
+		paf.toString();
 
         return "redirect:/import";
     }
