@@ -20,33 +20,33 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class ImportController {
-	
+
 	private final StorageService storageService;
 
-    @Autowired
-    public ImportController(StorageService storageService) {
-        this.storageService = storageService;
-    }
+	@Autowired
+	public ImportController(StorageService storageService) {
+		this.storageService = storageService;
+	}
 
 	@GetMapping("/import")
-    public String index(Model model){
+	public String index(Model model) {
 		return "import";
-    }
-	
-	@PostMapping("/import")
-    public String handleFileUpload(@RequestParam("file") MultipartFile file,
-            RedirectAttributes redirectAttributes) throws Exception {
+	}
 
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
-                "You successfully uploaded " + file.getOriginalFilename() + "!");
-        				
-		LEndianRandomAccessFile file2 = new LEndianRandomAccessFile("upload-dir/"+file.getOriginalFilename(), "r");
-		
+	@PostMapping("/import")
+	public String handleFileUpload(Model model, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes)
+			throws Exception {
+
+		storageService.store(file);
+		redirectAttributes.addFlashAttribute("message",
+				"You successfully uploaded " + file.getOriginalFilename() + "!");
+
+		LEndianRandomAccessFile file2 = new LEndianRandomAccessFile("upload-dir/" + file.getOriginalFilename(), "r");
+
 		PAFFile paf = new PAFFile(file2);
 		
-		paf.toString();
-
-        return "redirect:/import";
-    }
+		model.addAttribute("individuals", paf.getIndividuals());
+		
+		return "results";
+	}
 }

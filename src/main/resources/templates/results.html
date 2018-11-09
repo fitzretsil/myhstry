@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<table>
+			<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Middle Name</th>
+				<th>Last Name</th>
+				<th>Suffix</th>
+				<th>Surname Prefix</th>
+				<th>Name Prefix</th>
+				<th>Gender</th>
+				<th>Birth</th>
+				<th>Death</th>
+				<th>Number of Descendants</th>
+				<th>Number of Ancestors</th>
+				<th>Total Path Length</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="individual : ${individuals}">
+        			<td th:text="${individual.givenName}"></td>
+        			<td th:text="${individual.middleName}"></td>
+        			<td th:text="${individual.surname}"></td>
+        			<td th:text="${individual.nameSuffix}"></td>
+        			<td th:text="${individual.surnamePrefix}"></td>
+        			<td th:text="${individual.namePrefix}"></td>
+        			<td th:text="${individual.gender}"></td>
+        			<td th:text="${individual.birth}"></td>
+        			<td th:text="${individual.death}"></td>
+        			<td th:text="${individual.numberOfDescendants}"></td>
+        			<td th:text="${individual.numberOfAncestors}"></td>
+        			<td th:text="${individual.totalPathLength}"></td>
+        		</tr>
+            </tbody>
+		</table>
+	</div>
+</div>
+</html>

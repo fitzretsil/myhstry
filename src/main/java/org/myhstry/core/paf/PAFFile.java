@@ -1,5 +1,7 @@
 package org.myhstry.core.paf;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PAFFile {
 
@@ -14,6 +16,9 @@ public class PAFFile {
 	static short dBMap[] = new short[PAF5_MAP_RECORD_SIZE / 2];
 
 	private PAFHeader header;
+	
+	private List<Family> families = new ArrayList<Family>();
+	private List<Individual> individuals = new ArrayList<Individual>();
 
 	public PAFFile(LEndianRandomAccessFile file) throws IOException {
 		GedcomRecord record = new GedcomRecord();
@@ -30,6 +35,20 @@ public class PAFFile {
 		getFamilies(file, record);
 		
 		record.linkRecord();
+	}
+
+	/**
+	 * @return the families
+	 */
+	public List<Family> getFamilies() {
+		return families;
+	}
+
+	/**
+	 * @return the individuals
+	 */
+	public List<Individual> getIndividuals() {
+		return individuals;
 	}
 
 	private void getFamilies(LEndianRandomAccessFile file, GedcomRecord record) throws IOException {			
@@ -60,7 +79,8 @@ public class PAFFile {
 						Individual child = record.getIndividuals().get(childId);
 						if (child != null)
 							child.famcIds.add(fam.id);
-					}			
+					}
+					families.add(fam);
 				} else
 					maxRin++;
 					
@@ -130,6 +150,7 @@ public class PAFFile {
 			if (indi != null) {
 				record.addIndividual(indi.id, indi);
 				System.out.println("Individual " + i + ": " + indi.toString());
+				individuals.add(indi);
 			} else
 				maxRin++;
 
