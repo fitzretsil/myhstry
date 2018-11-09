@@ -46,6 +46,7 @@ public class ImportController {
 		PAFFile paf = new PAFFile(file2);
 		
 		model.addAttribute("individuals", paf.getIndividuals());
+		model.addAttribute("families", paf.getFamilies());
 		
 		return "results";
 	}
