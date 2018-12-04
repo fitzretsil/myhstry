@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Formula;
 
@@ -35,7 +36,8 @@ public class Person implements Serializable {
 
 	private String gender;
 
-	private Date birth;
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Event birth;
 	private Date death;
 	
 	@ManyToOne
@@ -64,8 +66,6 @@ public class Person implements Serializable {
 		setSurname(surname2);
 		setGender(gender2);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		if (!birth2.isEmpty())
-			setBirth(formatter.parse(birth2));
 		if (!death2.isEmpty())
 			setDeath(formatter.parse(death2));
 		setMother(mother2);
@@ -173,14 +173,16 @@ public class Person implements Serializable {
 	/**
 	 * @return the birth
 	 */
-	public Date getBirth() {
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "birthId", referencedColumnName = "id")
+	public Event getBirth() {
 		return birth;
 	}
 
 	/**
 	 * @param birth the birth to set
 	 */
-	public void setBirth(Date birth) {
+	public void setBirth(Event birth) {
 		this.birth = birth;
 	}
 
@@ -196,11 +198,6 @@ public class Person implements Serializable {
 	 */
 	public void setDeath(Date death) {
 		this.death = death;
-	}
-
-	public void setBirth(String string) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		this.birth = formatter.parse(string);
 	}
 
 	public void setDeath(String string) throws ParseException {

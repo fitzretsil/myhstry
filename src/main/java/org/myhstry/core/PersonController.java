@@ -95,8 +95,8 @@ public class PersonController {
 		if (body.get("gender").length() > 0)
 			person.setGender(body.get("gender"));
 		
-		if (body.get("birth").length() > 0)
-			person.setBirth(body.get("birth"));
+//		if (body.get("birth").length() > 0)
+//			person.setBirth(body.get("birth"));
 		
 		if (body.get("death").length() > 0)
 			person.setDeath(body.get("death"));

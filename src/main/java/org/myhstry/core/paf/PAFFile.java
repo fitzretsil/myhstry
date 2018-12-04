@@ -59,12 +59,12 @@ public class PAFFile {
 				Family fam = getFamily(file, i);
 				if (fam != null)
 				{
-					System.out.println(fam.toString());
+//					System.out.println(fam.toString());
 					//add fams and famc ids in for individuals in marriage
 					if (fam.husbandId != null)
 					{
 						Individual husband = record.getIndividuals().get(fam.husbandId);
-						System.out.println("Found Husband: " + husband.toString());
+//						System.out.println("Found Husband: " + husband.toString());
 						if (husband != null)
 							husband.famsIds.add(fam.id);
 					}
