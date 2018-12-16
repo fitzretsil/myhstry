@@ -38,7 +38,9 @@ public class Person implements Serializable {
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Event birth;
-	private Date death;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Event death;
 	
 	@ManyToOne
 	private Person father;
@@ -65,9 +67,6 @@ public class Person implements Serializable {
 		setMiddlenames(middlenames2);
 		setSurname(surname2);
 		setGender(gender2);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		if (!death2.isEmpty())
-			setDeath(formatter.parse(death2));
 		setMother(mother2);
 		setFather(father2);
 	}
@@ -189,20 +188,17 @@ public class Person implements Serializable {
 	/**
 	 * @return the death
 	 */
-	public Date getDeath() {
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "deathId", referencedColumnName = "id")
+	public Event getDeath() {
 		return death;
 	}
 
 	/**
 	 * @param death the death to set
 	 */
-	public void setDeath(Date death) {
+	public void setDeath(Event death) {
 		this.death = death;
-	}
-
-	public void setDeath(String string) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		this.death = formatter.parse(string);		
 	}
 
 	/**

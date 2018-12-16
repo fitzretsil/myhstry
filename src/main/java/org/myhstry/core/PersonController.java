@@ -98,8 +98,8 @@ public class PersonController {
 //		if (body.get("birth").length() > 0)
 //			person.setBirth(body.get("birth"));
 		
-		if (body.get("death").length() > 0)
-			person.setDeath(body.get("death"));
+//		if (body.get("death").length() > 0)
+//			person.setDeath(body.get("death"));
 		
 		if (body.get("mother").length() > 0) {
 			int motherId = Integer.parseInt(body.get("mother"));

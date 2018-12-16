@@ -98,6 +98,30 @@ public class ImportController {
 			
 			p.setBirth(birth);
 			
+			Event death = new Event();
+			try {
+				String deathString = i.death.date.trim().toLowerCase();
+				String deathYear = i.death.yearString;
+				
+				if (deathString.equals(null)) {
+					
+				} else {
+					death.setYear(Integer.parseInt(deathYear));
+					
+					death.setDay(Integer.parseInt(i.death.dayString));
+					
+					Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(i.death.monthString);
+				    Calendar cal = Calendar.getInstance();
+				    cal.setTime(date);			    
+				    death.setMonth(cal.get(Calendar.MONTH)+1);
+				}
+				
+			} catch (NumberFormatException | NullPointerException e) {
+				System.out.println("Error caught: " + e.getMessage());
+			}
+			
+			p.setDeath(death);
+			
 			personRepository.save(p);
 		}
 		
