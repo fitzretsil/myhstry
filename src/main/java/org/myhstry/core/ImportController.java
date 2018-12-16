@@ -82,6 +82,7 @@ public class ImportController {
 			try {
 				String birthString = i.birth.date.trim().toLowerCase();
 				String birthYear = i.birth.yearString;
+				birth.setPlace(i.birth.place);
 				
 				if (birthString.equals(null)) {
 					
@@ -112,6 +113,7 @@ public class ImportController {
 			try {
 				String deathString = i.death.date.trim().toLowerCase();
 				String deathYear = i.death.yearString;
+				death.setPlace(i.death.place);
 				
 				if (deathString.equals(null)) {
 					
