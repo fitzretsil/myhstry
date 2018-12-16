@@ -61,9 +61,19 @@ public class ImportController {
 		List<Individual> individuals = paf.getIndividuals();
 		for (Individual i : individuals) {
 			Person p = new Person();
-			p.setFirstname(i.givenName);
+			if (i.middleName.length() == 0) {
+				String[] names = i.givenName.trim().split("\\s+");
+				p.setFirstname(names[0]);
+				String middleNames = "";
+				for (int j = 1; j < names.length; j++) {
+					middleNames += names[j] + " ";
+				}
+				if (middleNames.length() > 0) p.setMiddlenames(middleNames.trim());
+			} else {
+				p.setFirstname(i.givenName);
+				p.setMiddlenames(i.middleName);
+			}
 			p.setGender(i.gender.toString());
-			p.setMiddlenames(i.middleName);
 			p.setPrefix(i.namePrefix);
 			p.setSuffix(i.nameSuffix);
 			p.setSurname(i.surname);
