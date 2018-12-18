@@ -2,8 +2,6 @@ package org.myhstry.model;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Formula;
+import org.myhstry.db.MarriageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class Person implements Serializable {
@@ -26,6 +26,8 @@ public class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	private String pafId;
 
 	private String firstname;
 	private String middlenames;
@@ -35,8 +37,11 @@ public class Person implements Serializable {
 
 	private String gender;
 
-	private Date birth;
-	private Date death;
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Event birth;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Event death;
 	
 	@ManyToOne
 	private Person father;
@@ -44,8 +49,7 @@ public class Person implements Serializable {
 	@ManyToOne
 	private Person mother;
 	
-	@Formula("CONCAT(firstname, ' ', middlenames, ' ', surname)")
-	private String fullname;
+	private String pafParentsId;
 
 	public Person() {
 		
@@ -63,11 +67,6 @@ public class Person implements Serializable {
 		setMiddlenames(middlenames2);
 		setSurname(surname2);
 		setGender(gender2);
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		if (!birth2.isEmpty())
-			setBirth(formatter.parse(birth2));
-		if (!death2.isEmpty())
-			setDeath(formatter.parse(death2));
 		setMother(mother2);
 		setFather(father2);
 	}
@@ -173,39 +172,33 @@ public class Person implements Serializable {
 	/**
 	 * @return the birth
 	 */
-	public Date getBirth() {
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "birthId", referencedColumnName = "id")
+	public Event getBirth() {
 		return birth;
 	}
 
 	/**
 	 * @param birth the birth to set
 	 */
-	public void setBirth(Date birth) {
+	public void setBirth(Event birth) {
 		this.birth = birth;
 	}
 
 	/**
 	 * @return the death
 	 */
-	public Date getDeath() {
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "deathId", referencedColumnName = "id")
+	public Event getDeath() {
 		return death;
 	}
 
 	/**
 	 * @param death the death to set
 	 */
-	public void setDeath(Date death) {
+	public void setDeath(Event death) {
 		this.death = death;
-	}
-
-	public void setBirth(String string) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		this.birth = formatter.parse(string);
-	}
-
-	public void setDeath(String string) throws ParseException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		this.death = formatter.parse(string);		
 	}
 
 	/**
@@ -244,7 +237,33 @@ public class Person implements Serializable {
 	 * @return the fullname
 	 */
 	public String getFullname() {
-		return fullname;
+		String name = "";
+		if (firstname != null) name += firstname;
+		if (middlenames != null) name += " " + middlenames;
+		if (surname != null) name += " " + surname;
+		return name.trim();
+	}
+
+	/**
+	 * @return the pafFamilyId
+	 */
+	public String getPafFamilyId() {
+		return pafParentsId;
+	}
+
+	/**
+	 * @param pafFamilyId the pafFamilyId to set
+	 */
+	public void setPafFamilyId(String pafFamilyId) {
+		this.pafParentsId = pafFamilyId;
+	}
+
+	public String getPafId() {
+		return pafId;
+	}
+
+	public void setPafId(String pafId) {
+		this.pafId = pafId;
 	}
 
 }

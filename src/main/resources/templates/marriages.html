@@ -13,6 +13,7 @@
 			<tr>
 				<th>Husband</th>
 				<th>Wife</th>
+				<th>Wedding</th>
 				<th>Actions</th>
 			</tr>
 			</thead>
@@ -20,6 +21,7 @@
 				<tr th:each="marriage : ${marriages}">
         			<td th:text="${marriage?.husband?.fullname}"></td>
         			<td th:text="${marriage?.wife?.fullname}"></td>
+        			<td th:text="${marriage.wedding}"></td>
         			<td><a th:href="@{'/marriages/edit/' + ${marriage.id}}">Edit</a> &bullet; <a th:href="@{'/marriages/delete/' + ${marriage.id}}">Delete</a></td>
 				</tr>
             </tbody>

@@ -28,7 +28,8 @@
         			<td th:text="${person.middlenames}"></td>
         			<td th:text="${person.surname}"></td>
         			<td th:text="${person.gender}"></td>
-        			<td th:text="${#dates.format(person.birth, 'dd/MM/yyyy')}"></td>
+        			<!-- <td th:text="${#dates.format(person.birth, 'dd/MM/yyyy')}"></td> -->
+        			<td th:text="${person.birth}"></td>
         			<td th:text="${person.death}"></td>
         			<td th:text="${person?.father?.fullname}"></td>
         			<td th:text="${person?.mother?.fullname}"></td>

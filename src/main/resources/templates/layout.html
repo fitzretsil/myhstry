@@ -23,6 +23,7 @@
 					<li><a href="/about">About</a></li>
 					<li sec:authorize="isAuthenticated()"><a href="/person">People</a></li>
 					<li sec:authorize="isAuthenticated()"><a href="/marriages">Marriages</a></li>
+					<li sec:authorize="isAuthenticated()"><a href="/import">Import</a></li>
 					<li sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></li>
 					<li sec:authorize="isAnonymous()"><a href="/login">Login</a></li>
 				</ul>

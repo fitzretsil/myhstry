@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.myhstry.db.MarriageRepository;
 import org.myhstry.db.PersonRepository;
+import org.myhstry.model.Marriage;
 import org.myhstry.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,22 @@ public class PersonController {
 	@Autowired
 	PersonRepository repository;
 	
+	@Autowired
+	MarriageRepository marriages;
+	
 	@GetMapping("/person")
     public String index(Model model){
-		model.addAttribute("list", repository.findAll());
+		List<Person> people = repository.findAll();
+//		for (Person person : people) {
+//			if (person.getMother() == null && person.getFather() == null) {
+//				Marriage temp = marriages.findMarriageByPAFID(person.getPafFamilyId());
+//				if (temp != null ) {
+//					person.setMother(temp.getWife());
+//					person.setFather(temp.getHusband());
+//				}
+//			}
+//		}
+		model.addAttribute("list", people);
 		return "person";
     }
 	
@@ -95,11 +110,11 @@ public class PersonController {
 		if (body.get("gender").length() > 0)
 			person.setGender(body.get("gender"));
 		
-		if (body.get("birth").length() > 0)
-			person.setBirth(body.get("birth"));
+//		if (body.get("birth").length() > 0)
+//			person.setBirth(body.get("birth"));
 		
-		if (body.get("death").length() > 0)
-			person.setDeath(body.get("death"));
+//		if (body.get("death").length() > 0)
+//			person.setDeath(body.get("death"));
 		
 		if (body.get("mother").length() > 0) {
 			int motherId = Integer.parseInt(body.get("mother"));
