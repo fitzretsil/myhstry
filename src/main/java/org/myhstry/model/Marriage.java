@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Marriage {
@@ -22,6 +23,9 @@ public class Marriage {
 	
 	@ManyToOne
 	private Person wife;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Event event;
 	
 	public Marriage() {
 		
@@ -73,5 +77,21 @@ public class Marriage {
 
 	public void setPafId(String pafId) {
 		this.pafId = pafId;
+	}
+
+	/**
+	 * @return the wedding
+	 */
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "eventId", referencedColumnName = "id")
+	public Event getWedding() {
+		return event;
+	}
+
+	/**
+	 * @param wedding the wedding to set
+	 */
+	public void setWedding(Event wedding) {
+		this.event = wedding;
 	}
 }

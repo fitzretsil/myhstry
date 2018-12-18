@@ -50,7 +50,8 @@ public class Family implements Serializable
 		b.append("WIFE_ID: "+wifeId+"\n");
 		b.append(wife+"\n");
 		b.append("CHIL_IDS: "+childrenXRefIds+"\n");
-		b.append(children+"\n");		
+		b.append(children+"\n");	
+		b.append("Wedding: " + marriage + "\n");
 		
 		return b.toString();
 	}

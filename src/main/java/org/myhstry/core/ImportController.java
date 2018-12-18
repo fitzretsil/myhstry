@@ -155,11 +155,11 @@ public class ImportController {
 		}
 		
 		for (Family family : families) {
+			System.out.println("Importing " + family);
 			Marriage marriage = new Marriage();
 			marriage.setPafId(family.id);
 			if (family.husbandId != null ) {
 				int husbandId = Integer.parseInt(family.husbandId.substring(1)) - 1;
-				System.out.println("Getting person at position " + husbandId + ", retrived " + people.get(husbandId).getFirstname());
 				marriage.setHusband(people.get(husbandId));
 			}
 			if (family.wifeId != null ) {
@@ -167,27 +167,34 @@ public class ImportController {
 				marriage.setWife(people.get(wifeId));
 			}
 			
-			Event wedding = new Event();
-			try {
-				String dateString = family.marriage.date.trim().toLowerCase();
-				String year = family.marriage.yearString;
-				wedding.setPlace(family.marriage.place);
-				
-				if (dateString.equals(null)) {
+			if (family.marriage != null) {
+				family.marriage.parseDateParts();
+				Event wedding = new Event();
+				try {
+					System.out.println("Marriage happend on " + family.marriage);
+					String dateString = family.marriage.date.trim().toLowerCase();
+					String year = ""+family.marriage.yearInt;
+					System.out.println("Date String: " + dateString + ", Year: " + year);
+					wedding.setPlace(family.marriage.place);
 					
-				} else {
-					wedding.setYear(Integer.parseInt(year));
+					if (dateString.equals(null)) {
+						
+					} else {
+						wedding.setYear(Integer.parseInt(year));
+						
+						wedding.setDay(Integer.parseInt(family.marriage.dayString));
+						
+						Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(family.marriage.monthString);
+					    Calendar cal = Calendar.getInstance();
+					    cal.setTime(date);			    
+					    wedding.setMonth(cal.get(Calendar.MONTH)+1);
+					}
 					
-					wedding.setDay(Integer.parseInt(family.marriage.dayString));
-					
-					Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(family.marriage.monthString);
-				    Calendar cal = Calendar.getInstance();
-				    cal.setTime(date);			    
-				    wedding.setMonth(cal.get(Calendar.MONTH)+1);
+				} catch (NumberFormatException | NullPointerException e) {
+	//				System.out.println("Error caught: " + e.getMessage());
 				}
 				
-			} catch (NumberFormatException | NullPointerException e) {
-//				System.out.println("Error caught: " + e.getMessage());
+				marriage.setWedding(wedding);
 			}
 			
 			marriageRepository.save(marriage);
