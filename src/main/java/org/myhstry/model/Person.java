@@ -2,8 +2,6 @@ package org.myhstry.model;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,7 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Formula;
+import org.myhstry.db.MarriageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 public class Person implements Serializable {
@@ -27,6 +26,8 @@ public class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	private String pafId;
 
 	private String firstname;
 	private String middlenames;
@@ -48,8 +49,7 @@ public class Person implements Serializable {
 	@ManyToOne
 	private Person mother;
 	
-	@Formula("CONCAT(firstname, ' ', middlenames, ' ', surname)")
-	private String fullname;
+	private String pafParentsId;
 
 	public Person() {
 		
@@ -237,7 +237,33 @@ public class Person implements Serializable {
 	 * @return the fullname
 	 */
 	public String getFullname() {
-		return fullname;
+		String name = "";
+		if (firstname != null) name += firstname;
+		if (middlenames != null) name += " " + middlenames;
+		if (surname != null) name += " " + surname;
+		return name.trim();
+	}
+
+	/**
+	 * @return the pafFamilyId
+	 */
+	public String getPafFamilyId() {
+		return pafParentsId;
+	}
+
+	/**
+	 * @param pafFamilyId the pafFamilyId to set
+	 */
+	public void setPafFamilyId(String pafFamilyId) {
+		this.pafParentsId = pafFamilyId;
+	}
+
+	public String getPafId() {
+		return pafId;
+	}
+
+	public void setPafId(String pafId) {
+		this.pafId = pafId;
 	}
 
 }

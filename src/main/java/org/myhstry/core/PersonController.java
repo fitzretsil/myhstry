@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.myhstry.db.MarriageRepository;
 import org.myhstry.db.PersonRepository;
+import org.myhstry.model.Marriage;
 import org.myhstry.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,22 @@ public class PersonController {
 	@Autowired
 	PersonRepository repository;
 	
+	@Autowired
+	MarriageRepository marriages;
+	
 	@GetMapping("/person")
     public String index(Model model){
-		model.addAttribute("list", repository.findAll());
+		List<Person> people = repository.findAll();
+//		for (Person person : people) {
+//			if (person.getMother() == null && person.getFather() == null) {
+//				Marriage temp = marriages.findMarriageByPAFID(person.getPafFamilyId());
+//				if (temp != null ) {
+//					person.setMother(temp.getWife());
+//					person.setFather(temp.getHusband());
+//				}
+//			}
+//		}
+		model.addAttribute("list", people);
 		return "person";
     }
 	

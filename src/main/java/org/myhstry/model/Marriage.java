@@ -15,6 +15,8 @@ public class Marriage {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	private String pafId;
+	
 	@ManyToOne
 	private Person husband;
 	
@@ -63,5 +65,13 @@ public class Marriage {
 	 */
 	public void setWife(Person wife) {
 		this.wife = wife;
+	}
+
+	public String getPafId() {
+		return pafId;
+	}
+
+	public void setPafId(String pafId) {
+		this.pafId = pafId;
 	}
 }
