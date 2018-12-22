@@ -1,6 +1,8 @@
 package org.myhstry.core;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -10,6 +12,9 @@ import org.myhstry.db.PersonRepository;
 import org.myhstry.model.Marriage;
 import org.myhstry.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +47,48 @@ public class PersonController {
 //		}
 		model.addAttribute("list", people);
 		return "person";
+    }
+	
+	//-------------------
+    //var jsonStructureObject = [{
+    //    head: 'A',
+    //    id: 'aa',
+    //    contents: 'A Contents',
+    //    children: [
+    //        {
+    //            head: 'A-1',
+    //            id: 'a1',
+    //            contents: 'A-1 Contents',
+    //            children: [
+    //                { head: 'A-1-1', id: 'a11', contents: 'A-1-1 Contents' }
+    //            ]
+    //        },
+    //        {
+    //            head: 'A-2',
+    //            id: 'a2',
+    //            contents: 'A-2 Contents',
+    //            children: [
+    //                { head: 'A-2-1', id: 'a21', contents: 'A-2-1 Contents' },
+    //                { head: 'A-2-2', id: 'a22', contents: 'A-2-2 Contents' }
+    //            ]
+    //        }
+    //    ]
+    //}];
+    ////-----------
+    //$("#tree").jHTree({
+    //    callType: 'obj',
+    //    structureObj: jsonStructureObject
+    //});
+	@GetMapping(path = "/person/view/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> sayHello(@PathVariable int id)
+    {
+         //Get data from service layer into entityList.
+
+		HashMap<String, Object> map = new HashMap<>();
+	    map.put("head", "Parent");
+	    map.put("id","1");
+	    map.put("contents", "Person's Name");
+        return new ResponseEntity<Object>(map, HttpStatus.OK);
     }
 	
 	@GetMapping("/person/add")

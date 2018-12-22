@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<div layout:fragment="page_content" id="page_content">
+	<script type="text/javascript">
+        $(function () {
+
+            $("#tree").jHTree({
+                callType: 'url',
+                url: '/person/view/1',
+                nodeDropComplete: function (event, data) {
+                    //----- Do Something @ Server side or client side -----------
+                    //alert("Node ID: " + data.nodeId + " Parent Node ID: " + data.parentNodeId);
+                    //-----------------------------------------------------------
+                }
+            });
+            //-------------------
+            //var jsonStructureObject = [{
+            //    head: 'A',
+            //    id: 'aa',
+            //    contents: 'A Contents',
+            //    children: [
+            //        {
+            //            head: 'A-1',
+            //            id: 'a1',
+            //            contents: 'A-1 Contents',
+            //            children: [
+            //                { head: 'A-1-1', id: 'a11', contents: 'A-1-1 Contents' }
+            //            ]
+            //        },
+            //        {
+            //            head: 'A-2',
+            //            id: 'a2',
+            //            contents: 'A-2 Contents',
+            //            children: [
+            //                { head: 'A-2-1', id: 'a21', contents: 'A-2-1 Contents' },
+            //                { head: 'A-2-2', id: 'a22', contents: 'A-2-2 Contents' }
+            //            ]
+            //        }
+            //    ]
+            //}];
+            ////-----------
+            //$("#tree").jHTree({
+            //    callType: 'obj',
+            //    structureObj: jsonStructureObject
+            //});
+        });
+    </script>
+	<div class="content">
+		<div id="tree"></div>
+	</div>
+</div>
+</html>
