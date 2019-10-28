@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 	
 	List<Person> findAllByGender(String gender);
+	
+	List<Person> findAllByFather(Person father);
 }

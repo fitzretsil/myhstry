@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+	
+<div layout:fragment="page_content" id="page_content">
+	<div class="content">
+		<div id="parents">
+			<h3>Parents</h3>
+			<div id="father" class="person">
+				<span th:text="${person.father.fullname}" /><br />
+				<span th:text="${person.father.birth}" /><br />
+				<span th:text="${person.father.death}" /><br />
+			</div>
+			
+			<div id="mother" class="person">
+				<span th:text="${person.mother.fullname}" /><br />
+				<span th:text="${person.mother.birth}" /><br />
+				<span th:text="${person.mother.death}" /><br />
+			</div>
+		</div>
+		
+		<div id="person" class="person">
+			<span th:text="${person.fullname}" /><br />
+			<span th:text="${person.birth}" /><br />
+			<span th:text="${person.death}" /><br />
+		</div>
+		
+		<div id="marriages">
+			<table>
+				<thead>
+					<tr><th>Spouse Name</th><th>Birth</th><th>Death</th></tr>
+				</thead>
+				<tbody>
+					<tr th:each="marriage : ${marriages}">
+						<td th:text="${marriage.wife.fullname}"></td>
+						<td th:text="${marriage.wife.birth}"></td>
+						<td th:text="${marriage.wife.death}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="children">
+			<table>
+				<thead>
+					<tr><th>Child Name</th><th>Birth</th><th>Death</th></tr>
+				</thead>
+				<tbody>
+					<tr th:each="child : ${children}">
+						<td th:text="${child.fullname}"></td>
+						<td th:text="${child.birth}"></td>
+						<td th:text="${child.death}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</div>
+</html>

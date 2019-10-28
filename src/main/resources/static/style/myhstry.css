@@ -112,3 +112,28 @@ div#controls a {
 td a {
 	color: black;
 }
+
+div.person {
+	background: white;
+	border: 1px solid grey;
+	width: 500px;
+	height: 70px;
+	padding: 10px;
+	margin: 10px;
+}
+
+div#parents {
+	float: right;
+}
+
+div#person {
+	margin-top: 85px;
+}
+
+div#marriages {
+	margin: 20px 0px;
+}
+
+div#children table {
+	width: 100%;
+}

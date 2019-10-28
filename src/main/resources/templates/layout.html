@@ -8,6 +8,65 @@
 <link href="https://fonts.googleapis.com/css?family=Comfortaa"
 	rel="stylesheet">
 <link rel="stylesheet" href="/style/myhstry.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$( document ).ready(function() {
+	
+	console.log("Hello World");
+	
+	ajaxPost();
+	
+	var processed = 0;
+    
+    
+    function ajaxPost(){
+    	
+    	// DO POST
+    	$.ajax({
+			type : "GET",
+			url : window.location.protocol + "/paf1/diacks.paf",
+			success : function(result) {
+				if(result.status == "Done"){
+					$("#postResultDiv").html("<p style='background-color:#7FA7B0; color:white; padding:20px 20px 20px 20px'>" + 
+												"Post Successfully! <br>" +
+												"---> Individuals to import = " + 
+												result.data.people + ", Families to import = " + result.data.families + "</p>");
+				}else{
+					$("#postResultDiv").html("<strong>Error</strong>");
+				}
+				console.log(result);
+				processFile();
+				console.log("called processFile()");
+			},
+			error : function(e) {
+				alert("Error!")
+				console.log("ERROR: ", e);
+			}
+		});
+    	
+    	$.processFile({
+    		type: "GET",
+    		url: window.location.protocol + "/paf2/diacks.paf/" + processed,
+    		success : function(result) {
+    			if(result.status == "Done"){
+    				console.log("Processed " + result.data.processed);
+    			}else{
+					console.log("Sad face");
+				}
+    		}
+    	});
+    	
+    	// Reset FormData after Posting
+    	resetData();
+ 
+    }
+    
+    function resetData(){
+    	$("#firstname").val("");
+    	$("#lastname").val("");
+    }
+})
+</script>
 </head>
 <body>
 	<div id="container">

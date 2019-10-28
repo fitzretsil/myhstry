@@ -94,6 +94,18 @@ public class PersonController {
 		return "editPerson";
 	}
 	
+	@GetMapping("/person/view/{id}")
+	public String viewPerson(@PathVariable int id, Model model) {
+		Person person = repository.findById(id).get();
+		model.addAttribute("person", person);
+		
+		model.addAttribute("marriages", marriages.findMarriagesByHusbandId(person));
+		
+		model.addAttribute("children", repository.findAllByFather(person));
+		
+		return "viewPerson";
+	}
+	
 	@PostMapping("/person/edit/{id}")
     public RedirectView updatePerson(@PathVariable int id,@RequestParam Map<String, String> body) throws ParseException {
 		Person person = repository.findById(id).get();
